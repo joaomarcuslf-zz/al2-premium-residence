@@ -1,0 +1,35 @@
+	Um novo empreendimento, AL2 Premium Residence, está sendo lançado pela construtora FAETERJ, consistindo em um condomínio residencial com 4 blocos (Array, Matrix, Struct e File).
+
+	Como o empreendimento será oficialmente lançado no final de setembro, a construtora necessita de um sistema que gerencie a venda de suas unidades.
+
+	Para isso, algumas informações são importantes:
+
+		1. Todo bloco possui 10 andares, cada qual com 6 apartamentos;
+		2. Os apartamentos das colunas 2 e 5 possuem 3 quartos; os das colunas 1 e 4 possuem 2; os das colunas 3 e 6 possuem apenas 1;
+		3. O condomínio possui 400 vagas de garagem (numeradas de G001 a G400). Porém, nenhuma vaga é prevista na escritura do apartamento. Logo, o cliente deve optar ou não pela compra da garagem no momento da aquisição de seu apartamento. Cada vaga será vendida por R$ 20.000,00 e os apartamentos de 3 quartos podem comprar até 2 vagas; os demais, apenas 1 vaga;
+		4. Quanto mais alto o andar, mais caro será o apartamento. Para o cálculo, o valor do apartamento será o daquele imediatamente abaixo acrescido de 3,5%. Os apartamentos do primeiro andar terão os seguintes valores de venda sugeridos: 1 quarto - R$ 225.000,00; 2 quartos - R$ 280.000,00; 3 quartos - R$ 375.000,00.
+		5. Não existem apartamentos de cobertura.
+
+	O sistema proposto deve garantir a gerência da venda das unidades e o lançamento de cada compra ou reserva realizada. Portanto, precisa guardar o status de cada apartamento: vendido, reservado, disponível ou "construtora". Este último representa que esta unidade está reservada para a própria construtora e, portanto, não está disponível para negociação.
+
+	Se o apartamento for vendido, é necessário armazenar os dados do cliente (CPF, nome e telefone), tipo de transação (à vista ou financiada) e o valor de venda. Caso a compra seja à vista, o valor de venda pode ser reduzido em até 15% (não necessariamente este percentual); se for financiado, o valor de venda pode representar, no máximo, 95% do valor original.
+
+	Observação: o valor de venda citado anteriormente não engloba o valor referente às vagas de garagem. Além disso, os percentuais de desconto são também aplicáveis às vagas.
+
+	No caso de reserva, também é necessário guardar os dados do cliente. Cada unidade poderá ficar reservada por, no máximo, 48 horas. Após esse período, a unidade torna-se, automaticamente, disponível para venda novamente.
+
+	Os seguintes relatórios gerenciais devem ser gerados pelo sistema:
+		a) Disponibilidade de apartamentos do condomínio;
+		b) Disponibilidade de apartamentos de determinado bloco;
+		c) Disponibilidade de apartamentos por número de quartos;
+		d) Mapa de vagas disponíveis;
+		e) Mapa de vagas adquiridas, informando o apartamento; 
+		f) Consulta por status (vendido, reservado, disponível, construtora) e/ou bloco;
+		g) Cálculo de comissão de determinado mês, definindo, para cada vendedor, o total a receber pelas unidades que vendeu. Nota: a comissão do vendedor é de 0,4% 	sobre o valor total da venda (apartamento + vagas);
+		h) Relação com os dados dos clientes de determinado vendedor, cujos apartamentos estão com o status reservado. Esta listagem servirá para que o vendedor entre em contato com o cliente para tentar garantir a efetivação da venda.
+
+
+	Observações gerais:
+		i. O sistema deve ser modularizado;
+		ii. O trabalho pode ser feito em dupla ou individualmente;
+		iii. Data de entrega: 28/09/2015.
