@@ -18,6 +18,10 @@
 
 	No caso de reserva, também é necessário guardar os dados do cliente. Cada unidade poderá ficar reservada por, no máximo, 48 horas. Após esse período, a unidade torna-se, automaticamente, disponível para venda novamente.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3f289f4efdb3c6794bf2945314533a7ca4bca530
 	Os seguintes relatórios gerenciais devem ser gerados pelo sistema:
 		a) Disponibilidade de apartamentos do condomínio;
 		b) Disponibilidade de apartamentos de determinado bloco;
