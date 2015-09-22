@@ -1,1 +1,5 @@
-
+Controle de tempo [ - ]
+Struct do cliente [ - ]
+Expoente [ - ]
+Conversar com o Massilon [ V ]
+Salvar em Git as modificações [ - ]
