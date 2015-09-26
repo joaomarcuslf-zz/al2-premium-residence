@@ -1,19 +1,21 @@
 #include <time.h>
 #include <stdio.h>
+#include "Library/variaveis.h"
 
 clock_t t1, t2;
 
 int main() {
-  int i=0;
-  float x;
-  t1=clock();
+  void gravar_hora(char []);
 
-  while(i!=1) {
-      printf("\n >> ");
-      scanf("%i", &i);
-  }
   t2=clock();
-  x=(difftime(t1, t2)/CLOCKS_PER_SEC);
-  printf("Tempo em mins: %.5f",x);
+  x=(difftime(t2, t1)/CLOCKS_PER_SEC);
+  printf("Tempo em segundos: %.5f",x);
   return 0;
+}
+
+
+void gravar_hora(char arquivo[strsize]) {
+  t1=clock();
+  FILE *filer = fopen(arquivo, 'a');
+
 }
