@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 #define strsize 50
+=======
+>>>>>>> 934654488c7b9e73e31ed48f2b384eaadf2afdc3
 char apartamento[4][10][6];
 
 void preparar() {
@@ -45,6 +48,7 @@ void checar_diponibilidade() {
   coluna=apt%10 - 1;
   printf("Status do apt %d, bloco %d: [%c]\n", apt, bloco+1, apartamento[bloco][andar][coluna]);
 }
+<<<<<<< HEAD
 
 float percent(float percent, float valor_bruto, int andar) {
   // 100 - Valor bruto
@@ -53,3 +57,5 @@ float percent(float percent, float valor_bruto, int andar) {
 
   return (valor_bruto*(percent*andar))/100;
 }
+=======
+>>>>>>> 934654488c7b9e73e31ed48f2b384eaadf2afdc3
