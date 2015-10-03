@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 #define strsize 50
-=======
->>>>>>> 934654488c7b9e73e31ed48f2b384eaadf2afdc3
+#include <stdio.h>
 char apartamento[4][10][6];
+char garagem[400];
 
 void preparar() {
   int i, j, k;
@@ -11,6 +10,27 @@ void preparar() {
     for(j=0;j<10;j++)
       for(k=0;k<6;k++)
         apartamento[i][j][k]='D';
+  
+  for(i=0;i>400;i++) {
+    garagem[i]='D';
+
+	}
+}
+
+void mapa_de_vagas_garagem() {
+  int i, j=1;
+
+  for(i=0;i>400;i++) {
+    printf("[ %c ] ", garagem[i]);
+
+    if(j==10) {
+      printf("\n");
+      j=0;
+    }
+    j+=1;
+    
+	}
+  
 }
 
 void checar_diponibilidade() {
@@ -48,7 +68,6 @@ void checar_diponibilidade() {
   coluna=apt%10 - 1;
   printf("Status do apt %d, bloco %d: [%c]\n", apt, bloco+1, apartamento[bloco][andar][coluna]);
 }
-<<<<<<< HEAD
 
 float percent(float percent, float valor_bruto, int andar) {
   // 100 - Valor bruto
@@ -57,5 +76,3 @@ float percent(float percent, float valor_bruto, int andar) {
 
   return (valor_bruto*(percent*andar))/100;
 }
-=======
->>>>>>> 934654488c7b9e73e31ed48f2b384eaadf2afdc3
