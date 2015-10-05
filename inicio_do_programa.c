@@ -138,7 +138,8 @@ void principal_panel() {
 
 void armazena_dados (char opt) 
 {
-	int vagas;
+	int vagas, perc;
+	char tipopagamento[50];
 	typedef struct solicita_dados
 	{
 		char nome[50];
@@ -167,11 +168,25 @@ void armazena_dados (char opt)
 		{
 			printf("\nEscolha a quantidade de vagas:\n- 0\n- 1\n- 2\n- 3\n- ");
 			scanf("%d", vagas);
-		
+		}	
+
+		//calculo valor total a ser pago
+
+		printf("\nSelecione a forma de pagamento: \n");
+		printf("- À vista\n- Financiado", );
+		scanf(" %[^\n]s%*c", tipopagamento);
+		if(validador=strncmp(tipopagamento, "À vista", 50) == 0 ) 
+		{
+				printf("O valor pode ser reduzido em até 15%.Qual sera a porcentagem?");
+				scanf("%d", perc);
+				//calculo de novo total com redução
+		}
+		else if(validador=strncmp(tipopagamento, "Financiado", 50) == 0)
+		{
+			//não soube o que escrever aqui
 		}
 
-		
-	
+
 	}
 
 
