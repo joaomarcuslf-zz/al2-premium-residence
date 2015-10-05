@@ -3,24 +3,64 @@
 #include <string.h>
 #include "Library/high_syntax.h"
 #include "Library/variaveis.h"
+int validador;
+int nquarto;
 
 int main (void)
 {
-	int bloco, nquarto, napto, andar, coluna, validador;
+ int validador;
 
 	preparar();
-
-	int panel();
+	int panel(); //declaracao de funcao
+	void principal_panel();
+	
 	while(true) {
-		validador = panel();
-
-		if(validador==0) {
-			break;
+	
+		while(true) {
+			validador = panel();
+	
+			if(validador==0) {
+				break;
+			}
+			else if(validador==1){
+				checar_diponibilidade();
+			}
 		}
-		else if(validador==1){
-			checar_diponibilidade();
-		}
+		principal_panel();
 	}
+	
+
+
+
+	return 0;
+}
+
+int panel() {
+	char opcoes[50];
+	
+
+	printf("\nDiga o que deseja fazer:");
+	printf("\nOpcoes:\n - Disponibilidade\n - Registrar\n - ");
+	scanf(" %[^\n]s%*c", opcoes);
+
+
+	if(validador=strncmp(opcoes, "Disponibilidade", 50) == 0) {
+		return 1;
+	}
+	else if(validador=strncmp(opcoes, "Registrar", 50) == 0) {
+		return 0;
+	}
+	else {
+		printf("\nOpcao indisponivel");
+		return 2;
+	}
+}
+
+void principal_panel() {
+	
+	char opcao[50];
+	int bloco, napto, andar, coluna;
+	
 	while(true)
 	{
 		printf("\nDigite o bloco desejado: ");
@@ -64,40 +104,76 @@ int main (void)
 		if(apartamento[bloco-1][andar-1][coluna-1]=='D')
 		{
 			printf("\nDisponivel");
+			printf("\nO que deseja fazer?\n- Comprar\n- Reservar\n- Cancelar\n- ");
+			scanf(" %[^\n]s%*c", opcao);
+			
+			if(validador=strncmp(opcao, "Comprar", 50) == 0 )
+			{
+				armazena_dados('C');
+			}
+			else if(validador=strncmp(opcao, "Reservar", 50) ==0)
+			{
+				armazena_dados('R');
+			}
+			else if(validador=strncmp(opcao, "Cancelar", 50) ==0)
+			{
+				return;
+			}
+
+			
 		}
 		else
 		{
 			if(apartamento[bloco-1][andar-1][coluna-1]=='R') {
 				printf("\nO apartamento está reservado");
+				return;
 			}
 			else {
 				printf("\nApartamento vendido");
+				return;
 			}
 		}
 	}
-
-
-
-	return 0;
 }
 
-int panel() {
-	char opcoes[50];
-	int validador;
+void armazena_dados (char opt) 
+{
+	int vagas;
+	typedef struct solicita_dados
+	{
+		char nome[50];
+		char cpf[16];
+		char telefone[10];
+	}; 
 
-	printf("\nDiga o que deseja fazer:");
-	printf("\nOpcoes:\n - disponibilidade\n - registrar\n - ");
-	scanf(" %[^\n]s%*c", opcoes);
+	struct solicita_dados dados;
+
+	printf("\n-- DADOS DO CLIENTE --\n");
+	printf("\nNome: ");
+	scanf(" %[^\n]s%*c", dados.nome);
+	printf("\nCPF: ");
+	scanf(" %[^\n]s%*c", dados.cpf);
+	printf("\nTelefone: ");
+	scanf("  %[^\n]s%*c", dados.telefone);
+
+	if(opt=='C')
+	{
+		if(nquarto<3)
+		{
+				printf("\nEscolha a quantidade de vagas:\n- 0\n- 1\n- ");
+				scanf("%d", vagas);
+		}
+		else if(nquarto==3)
+		{
+			printf("\nEscolha a quantidade de vagas:\n- 0\n- 1\n- 2\n- 3\n- ");
+			scanf("%d", vagas);
+		
+		}
+
+		
+	
+	}
 
 
-	if(validador=strncmp(opcoes, "disponibilidade", 50) == 0) {
-		return 1;
-	}
-	else if(validador=strncmp(opcoes, "registrar", 50) == 0) {
-		return 0;
-	}
-	else {
-		printf("\nOpcao indisponivel");
-		return 2;
-	}
 }
+
