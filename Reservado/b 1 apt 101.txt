@@ -1,0 +1,12 @@
+----------------------------------------------------------------------
+Status: Reservado
+Nome do cliente: Joao
+CPF: 123
+Telefone: 123
+----------------------------------------------------------------------
+Bloco:  1 Apt:  101
+Garagem: Sim
+G  0 G  1 
+Preco total a pagar: R$320000.00
+Tipo de pagamento: Parcelado
+6 parcelas de R$53333.33

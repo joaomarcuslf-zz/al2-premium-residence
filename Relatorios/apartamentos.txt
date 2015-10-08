@@ -1,0 +1,56 @@
+Bloco:  1
+Andar  1:[C] [D] [D] [D] [D] [D] 
+Andar  2:[D] [D] [D] [D] [D] [D] 
+Andar  3:[D] [D] [D] [D] [D] [D] 
+Andar  4:[D] [D] [D] [D] [D] [D] 
+Andar  5:[D] [D] [D] [D] [D] [D] 
+Andar  6:[D] [D] [D] [D] [D] [D] 
+Andar  7:[D] [D] [D] [D] [D] [D] 
+Andar  8:[D] [D] [D] [D] [D] [D] 
+Andar  9:[D] [D] [D] [D] [D] [D] 
+Andar 10:[D] [D] [D] [D] [D] [D] 
+
+
+
+Bloco:  2
+Andar  1:[D] [D] [D] [D] [D] [D] 
+Andar  2:[D] [D] [D] [D] [D] [D] 
+Andar  3:[D] [D] [D] [D] [D] [D] 
+Andar  4:[D] [D] [D] [D] [D] [D] 
+Andar  5:[D] [D] [D] [D] [D] [D] 
+Andar  6:[D] [D] [D] [D] [D] [D] 
+Andar  7:[D] [D] [D] [D] [D] [D] 
+Andar  8:[D] [D] [D] [D] [D] [D] 
+Andar  9:[D] [D] [D] [D] [D] [D] 
+Andar 10:[D] [D] [D] [D] [D] [D] 
+
+
+
+Bloco:  3
+Andar  1:[D] [D] [D] [D] [D] [D] 
+Andar  2:[D] [D] [D] [D] [D] [D] 
+Andar  3:[D] [D] [D] [D] [D] [D] 
+Andar  4:[D] [D] [D] [D] [D] [D] 
+Andar  5:[D] [D] [D] [D] [D] [D] 
+Andar  6:[D] [D] [D] [D] [D] [D] 
+Andar  7:[D] [D] [D] [D] [D] [D] 
+Andar  8:[D] [D] [D] [D] [D] [D] 
+Andar  9:[D] [D] [D] [D] [D] [D] 
+Andar 10:[D] [D] [D] [D] [D] [D] 
+
+
+
+Bloco:  4
+Andar  1:[D] [D] [D] [D] [D] [D] 
+Andar  2:[D] [D] [D] [D] [D] [D] 
+Andar  3:[D] [D] [D] [D] [D] [D] 
+Andar  4:[D] [D] [D] [D] [D] [D] 
+Andar  5:[D] [D] [D] [D] [D] [D] 
+Andar  6:[D] [D] [D] [D] [D] [D] 
+Andar  7:[D] [D] [D] [D] [D] [D] 
+Andar  8:[D] [D] [D] [D] [D] [D] 
+Andar  9:[D] [D] [D] [D] [D] [D] 
+Andar 10:[D] [D] [D] [D] [D] [D] 
+
+
+
