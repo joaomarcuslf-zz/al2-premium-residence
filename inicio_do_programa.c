@@ -10,15 +10,17 @@ int main (void)
 {
  int validador;
 
+  int panel(); //declaracao de funcao
+  void principal_panel();
+  void armazena_dados(char );
+
 	preparar();
-	int panel(); //declaracao de funcao
-	void principal_panel();
-	
+
 	while(true) {
-	
+
 		while(true) {
 			validador = panel();
-	
+
 			if(validador==0) {
 				break;
 			}
@@ -28,7 +30,7 @@ int main (void)
 		}
 		principal_panel();
 	}
-	
+
 
 
 
@@ -37,7 +39,7 @@ int main (void)
 
 int panel() {
 	char opcoes[50];
-	
+
 
 	printf("\nDiga o que deseja fazer:");
 	printf("\nOpcoes:\n - Disponibilidade\n - Registrar\n - ");
@@ -56,11 +58,59 @@ int panel() {
 	}
 }
 
+void armazena_dados (char opt)
+{
+	int vagas, perc;
+  float preco;
+	char tipopagamento[50];
+  num_de_cliente+=1;
+
+	printf("\n-- DADOS DO CLIENTE --\n");
+	printf("\nNome: ");
+	scanf(" %[^\n]s%*c", dados[num_de_cliente].nome);
+	printf("\nCPF: ");
+	scanf(" %[^\n]s%*c", dados[num_de_cliente].cpf);
+	printf("\nTelefone: ");
+	scanf("  %[^\n]s%*c", dados[num_de_cliente].telefone);
+
+	if(opt=='C')
+	{
+		if(nquarto<3)
+		{
+				printf("\nEscolha a quantidade de vagas:\n- 0\n- 1\n- ");
+				scanf("%d", &vagas);
+		}
+		else if(nquarto==3)
+		{
+			printf("\nEscolha a quantidade de vagas:\n- 0\n- 1\n- 2\n- 3\n- ");
+			scanf("%d", &vagas);
+		}
+
+		//calculo valor total a ser pago
+
+		printf("\nSelecione a forma de pagamento: \n");
+		printf("- À vista\n- Financiado\n- ");
+		scanf(" %[^\n]s%*c", tipopagamento);
+		if(validador=strncmp(tipopagamento, "À vista", 50) == 0 )
+		{
+				printf("O valor pode ser reduzido em até 15%%.Qual sera a porcentagem?");
+				scanf("%d", &perc);
+
+		}
+		else if(validador=strncmp(tipopagamento, "Financiado", 50) == 0)
+		{
+			//não soube o que escrever aqui
+		}
+
+
+	}
+}
+
 void principal_panel() {
-	
+
 	char opcao[50];
 	int bloco, napto, andar, coluna;
-	
+
 	while(true)
 	{
 		printf("\nDigite o bloco desejado: ");
@@ -106,7 +156,7 @@ void principal_panel() {
 			printf("\nDisponivel");
 			printf("\nO que deseja fazer?\n- Comprar\n- Reservar\n- Cancelar\n- ");
 			scanf(" %[^\n]s%*c", opcao);
-			
+
 			if(validador=strncmp(opcao, "Comprar", 50) == 0 )
 			{
 				armazena_dados('C');
@@ -120,7 +170,7 @@ void principal_panel() {
 				return;
 			}
 
-			
+
 		}
 		else
 		{
@@ -135,60 +185,3 @@ void principal_panel() {
 		}
 	}
 }
-
-void armazena_dados (char opt) 
-{
-	int vagas, perc;
-	char tipopagamento[50];
-	typedef struct solicita_dados
-	{
-		char nome[50];
-		char cpf[16];
-		char telefone[10];
-	}; 
-
-	struct solicita_dados dados;
-
-	printf("\n-- DADOS DO CLIENTE --\n");
-	printf("\nNome: ");
-	scanf(" %[^\n]s%*c", dados.nome);
-	printf("\nCPF: ");
-	scanf(" %[^\n]s%*c", dados.cpf);
-	printf("\nTelefone: ");
-	scanf("  %[^\n]s%*c", dados.telefone);
-
-	if(opt=='C')
-	{
-		if(nquarto<3)
-		{
-				printf("\nEscolha a quantidade de vagas:\n- 0\n- 1\n- ");
-				scanf("%d", vagas);
-		}
-		else if(nquarto==3)
-		{
-			printf("\nEscolha a quantidade de vagas:\n- 0\n- 1\n- 2\n- 3\n- ");
-			scanf("%d", vagas);
-		}	
-
-		//calculo valor total a ser pago
-
-		printf("\nSelecione a forma de pagamento: \n");
-		printf("- À vista\n- Financiado", );
-		scanf(" %[^\n]s%*c", tipopagamento);
-		if(validador=strncmp(tipopagamento, "À vista", 50) == 0 ) 
-		{
-				printf("O valor pode ser reduzido em até 15%.Qual sera a porcentagem?");
-				scanf("%d", perc);
-				//calculo de novo total com redução
-		}
-		else if(validador=strncmp(tipopagamento, "Financiado", 50) == 0)
-		{
-			//não soube o que escrever aqui
-		}
-
-
-	}
-
-
-}
-
