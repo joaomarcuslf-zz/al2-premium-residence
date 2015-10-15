@@ -8,6 +8,7 @@ int main() {
   int panel(); //declaracao de funcao
   void negociacao();
   void armazena_dados(char , int, int);
+  void logar_vendedor();
   preparar(); // Iniciar todas as vagas
   int validador;
 
@@ -15,42 +16,37 @@ int main() {
     while(true) {
 			validador = panel(); //Painel principal
 
-			if(validador==0) {
+			if(validador==1) {
 				break;
 			}
-			else if(validador==1){
+			else if(validador==0){
 				checar_diponibilidade();
 			}
+      else if(validador==3){
+				logar_vendedor();
+			}
+      else {
+        printf("\nOpcao invalida");
+      }
 		}
 		negociacao();
   }
 }
 
 int panel() {
-	char opcoes[50];
   int validador;
 
 
 	printf("\nDiga o que deseja fazer:");
-	printf("\nOpcoes:\n - Disponibilidade\n - Registrar\n - ");
-	scanf(" %[^\n]s%*c", opcoes);
+	printf("\nOpcoes:\n0 - Disponibilidade\n1 - Registrar\n3 - Vendedor\n >>> ");
+	scanf(" %i", &validador);
 
-
-	if(validador=strncmp(opcoes, "Disponibilidade", 50) == 0) {
-		return 1;
-	}
-	else if(validador=strncmp(opcoes, "Registrar", 50) == 0) {
-		return 0;
-	}
-	else {
-		printf("\nOpcao indisponivel");
-		return 2;
-	}
+  return validador;
 }
 
 void armazena_dados (char opt, int bloco, int apt)
 {
-  char tipopagamento[50];
+  int tipopagamento;
   num_de_cliente+=1;
   int id=num_de_cliente;
   int validador;
@@ -72,7 +68,7 @@ void armazena_dados (char opt, int bloco, int apt)
 	if(apt%100 == 5 or 2)
 		{
 			while(true){
-        printf("\nEscolha a quantidade de vagas da garagem:\n- 0\n- 1\n- 2\n- ");
+        printf("\nEscolha a quantidade de vagas da garagem:\n- 0\n- 1\n- 2\n>>> ");
 			  scanf("%d", &vagas);
         if(vagas == 0 or vagas ==  1 or vagas ==  2)
           break;
@@ -83,7 +79,7 @@ void armazena_dados (char opt, int bloco, int apt)
 
 		else {
       while(true) {
-        printf("\nEscolha a quantidade de vagas na garagem:\n- 0\n- 1\n- ");
+        printf("\nEscolha a quantidade de vagas na garagem:\n- 0\n- 1\n>>> ");
         scanf("%d", &vagas);
         if(vagas == 0 or 1)
           break;
@@ -107,14 +103,23 @@ void armazena_dados (char opt, int bloco, int apt)
 		//calculo valor total a ser pago
     printf("Valor total a pagar: R$%.2f", preco[id].total);
 		printf("\nSelecione a forma de pagamento: \n");
-		printf("- A vista\n- Parcelado\n- ");
-		scanf(" %[^\n]s%*c", tipopagamento);
-		if(validador=strncmp(tipopagamento, "A vista", 50) == 0 )
+
+    while(true) {
+      printf("0 - A vista\n1 - Parcelado\n>>> ");
+  		scanf("%d", &tipopagamento);
+
+      if(tipopagamento==0 or tipopagamento==1)
+        break;
+      else
+        printf("\nOpcao invalida\n");
+    }
+
+		if(tipopagamento == 0 )
 		{
         preco[id].parcela=0;
 
 		}
-		else if(validador=strncmp(tipopagamento, "Parcelado", 50) == 0)
+		else if(tipopagamento == 1)
 		{
       int num;
       float parcelar;
@@ -150,7 +155,7 @@ void armazena_dados (char opt, int bloco, int apt)
 
 void negociacao() {
 
-	char opcao[50];
+	int opcao;
 	int bloco, napto, andar, coluna, validador;
 
 	while(true)
@@ -175,25 +180,25 @@ void negociacao() {
 		printf("\nDigite o numero do apartamento desejado: ");
 		scanf("%d", &napto);
 		andar=(napto/100);
-		coluna=(napto/10);
+		coluna=(napto%10);
 
-		if(apartamento[bloco-1][andar-1][coluna-1]=='D')
+		if(apt_check[bloco-1][andar-1][coluna-1]==true)
 		{
 			printf("\nDisponivel");
-			printf("\nO que deseja fazer?\n- Comprar\n- Reservar\n- Cancelar\n- ");
-			scanf(" %[^\n]s%*c", opcao);
+			printf("\nO que deseja fazer?\n0 - Comprar\n1 - Reservar\n2 - Cancelar\n>>> ");
+			scanf("%i", &opcao);
 
-			if(validador=strncmp(opcao, "Comprar", 50) == 0 )
+			if(opcao == 0 )
 			{
 				armazena_dados('C', bloco, napto);
         return;
 			}
-			else if(validador=strncmp(opcao, "Reservar", 50) ==0)
+			else if(opcao == 1)
 			{
 				armazena_dados('R', bloco, napto);
         return;
 			}
-			else if(validador=strncmp(opcao, "Cancelar", 50) ==0)
+			else if(opcao == 2)
 			{
 				return;
 			}
@@ -202,14 +207,25 @@ void negociacao() {
 		}
 		else
 		{
-			if(apartamento[bloco-1][andar-1][coluna-1]=='R') {
-				printf("\nO apartamento está reservado");
+		    printf("\n\nApartamento indisponivel!\n");
 				return;
-			}
-			else {
-				printf("\nApartamento vendido");
-				return;
-			}
 		}
 	}
+}
+
+void logar_vendedor() {
+  FILE *f1;
+  printf("\nDiga seu nome: ");
+  scanf(" %[^\n]s%*c", ven_atual.nome);
+  printf("\nDiga seu id: ");
+  scanf("%i", &ven_atual.id);
+  sprintf(ven_atual.arquivo, "Vendedor/%s_%i.txt", ven_atual.nome, ven_atual.id);
+
+  if(fopen(ven_atual.arquivo, "r")==nil) {
+    f1 = fopen(ven_atual.arquivo, "w");
+    fprintf(f1, "Nome do vendedor: %s", ven_atual.nome);
+    fprintf(f1, "\nid: %i", ven_atual.id);
+    fprintf(f1, "\n---------------------------------------------------\nB - Apt - Status\n");
+    fclose(f1);
+  }
 }

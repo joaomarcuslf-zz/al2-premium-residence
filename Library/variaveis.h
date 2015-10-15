@@ -1,8 +1,11 @@
+#include <time.h>
 #define strsize 50
 #include <stdio.h>
 char apartamento[4][10][6];
 char mp_garagem[400];
 int garagem=0;
+int apt_check[4][10][6];
+clock_t t1, t2;
 
 typedef struct solicita_dados //Dados do cliente
 {
@@ -12,6 +15,13 @@ typedef struct solicita_dados //Dados do cliente
   char telefone[10];
   int id;
 }cliente;
+
+typedef struct dados_vendedor //Dados do cliente
+{
+  char nome[50];
+  int id;
+  char arquivo[100];
+}vendedor;
 
 typedef struct preco_do_apt // Preco do apartamento
 {
@@ -28,20 +38,76 @@ typedef struct preco_do_apt // Preco do apartamento
 
 cliente dados[240];
 valor preco[240];
+vendedor ven_atual;
 int num_de_cliente=-1;
 
+void mudar_status(int, int);
+
 void preparar() {
-  int i, j, k;
+  int i, j, k, x;
+  int apt, aval;
+  char arquivo[500], nome[500];
+  FILE *filer;
+  FILE *file;
+  FILE *file2;
 
-  for(i=0;i<4;i++)
-    for(j=0;j<10;j++)
-      for(k=0;k<6;k++)
-        apartamento[i][j][k]='D';
+  file=fopen("banco/banco_apt.txt", "r");
+  for(i=0;i<4;i++) {
+    for(j=0;j<10;j++) {
+      for(k=0;k<6;k++) {
+        fscanf(file, "[%c]\n", &apartamento[i][j][k]);
+        if(apartamento[i][j][k]!='D') {
+          apt_check[i][j][k]=0;
+          if(apartamento[i][j][k]=='R') {
 
+            apt=((j+1)*100)+(k+1) ;
+
+            sprintf(arquivo, "Reservado/b %i apt %i.bin", i+1, apt);
+
+            t2=clock();
+            clock_t *pt1;
+            pt1 = &t1;
+            filer = fopen(arquivo, "rb");
+            t1 = fread(pt1, sizeof(t2), 1, filer);
+            fclose (filer);
+
+
+            x=(difftime(t2, t1)/CLOCKS_PER_SEC);
+
+            if(x>172800) {
+              printf("O apartamento %i do bloco %i foi comprado?\n0 - Sim\n1 - Não\n>>>", i+1, apt);
+              scanf("%i", &aval);
+              if(aval==0) {
+                mudar_status(i+1, apt);
+                apartamento[i][j][k]='C';
+              }
+              else {
+                sprintf(nome, "Reservado/b %i apt %i.txt", i+1, apt);
+                file2=fopen(nome, "w");//Reservar
+                fclose(file2);
+                apartamento[i][j][k]='D';
+                k-=1;
+              }
+            }
+
+          }
+        }
+        else {
+          apt_check[i][j][k]=1;
+        }
+      }
+    }
+  }
+  fclose(file);
+
+  file=fopen("banco/banco_gar.txt", "r");
   for(i=0;i<400;i++) {
-    mp_garagem[i]='D';
-
-	}
+    fscanf(file, "[%c]\n", &mp_garagem[i]);
+    if(mp_garagem[i]!='D') {
+      garagem+=1;
+    }
+  }
+  fclose(file);
 }
 
 
@@ -121,8 +187,8 @@ float parcelado(int num_de_parcelas, float valor) {
 
 void gravar() {
   int id=num_de_cliente;
-  FILE *file;
-  char nome[500];
+  FILE *file, *f1;
+  char nome[500], reservado[500];
 
   if(dados[id].opca=='C') {
     apartamento[preco[id].bloco-1][(preco[id].apt/100)-1][(preco[id].apt%10)-1]='C';
@@ -133,10 +199,17 @@ void gravar() {
   }
   else {
     apartamento[preco[id].bloco-1][(preco[id].apt/100)-1][(preco[id].apt%10)-1]='R';
+
+    sprintf(reservado, "Reservado/b %i apt %i.bin", preco[id].bloco, preco[id].apt);
+    clock_t *pt1;
+    t1=clock();
+    pt1 = &t1;
+    file = fopen(reservado, "wb");
+    int i = fwrite(pt1, sizeof(t1), 1, file);
+    fclose (file);
+
     sprintf(nome, "Reservado/b %i apt %i.txt", preco[id].bloco, preco[id].apt);
     file=fopen(nome, "w");//Reservar
-    fprintf(file, "----------------------------------------------------------------------\n");
-    fprintf(file, "Status: Reservado");
   }
 
 
@@ -164,6 +237,11 @@ void gravar() {
 
   fclose(file);
 
+  f1 = fopen(ven_atual.arquivo, "a");
+  fprintf(f1, "%i - %3i - %c", preco[id].bloco, preco[id].apt, dados[id].opca);
+  fclose(f1);
+
+
   int i;
   int j;
   int k;
@@ -186,4 +264,46 @@ void gravar() {
     fprintf(file, "G%3i: [%c]\n", i, mp_garagem[i]);
   }
   fclose(file);
+
+  file=fopen("banco/banco_apt.txt", "w");
+  for(i=0;i<4;i++) {
+    for(j=0;j<10;j++) {
+      for(k=0;k<6;k++) {
+        fprintf(file, "[%c]\n", apartamento[i][j][k]);
+      }
+    }
+  }
+  fclose(file);
+
+  file=fopen("banco/banco_gar.txt", "w");
+  for(i=0;i<400;i++) {
+    fprintf(file, "[%c]\n", mp_garagem[i]);
+  }
+  fclose(file);
+
+}
+
+void mudar_status(int b, int apt) {
+  char arq1[500], arq2[500], leitor[1000];
+  FILE *f1, *f2;
+  sprintf(arq1, "Reservado/b %i apt %i.txt", b, apt);
+  sprintf(arq2, "Comprado/b %i apt %i.txt", b, apt);
+
+  f2=fopen("arq2", "w");
+  fprintf(f2, "----------------------------------------------------------------------\n");
+  fprintf(f2, "Status: Comprado");
+  fclose(f2);
+
+  f1=fopen(arq1, "r");
+  f2=fopen(arq2, "a");
+
+  while(fgets(leitor, 1000, f1)!=nil) {
+    fputs(leitor, f2);
+  }
+
+  fclose(f1);
+  fclose(f2);
+
+  f1=fopen("arq1", "w");
+  fclose(f1);
 }

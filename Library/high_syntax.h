@@ -4,4 +4,4 @@
 #define equal_to ==
 #define true 1
 #define false 0
-#define nil null
+#define nil NULL
