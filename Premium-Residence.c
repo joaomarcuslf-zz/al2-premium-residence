@@ -22,7 +22,7 @@ int main() {
 			else if(validador==0){
 				checar_diponibilidade();
 			}
-      else if(validador==3){
+      else if(validador==2){
 				logar_vendedor();
 			}
       else {
@@ -38,7 +38,7 @@ int panel() {
 
 
 	printf("\nDiga o que deseja fazer:");
-	printf("\nOpcoes:\n0 - Disponibilidade\n1 - Registrar\n3 - Vendedor\n >>> ");
+	printf("\nOpcoes:\n0 - Disponibilidade\n1 - Registrar\n2 - Vendedor\n >>> ");
 	scanf(" %i", &validador);
 
   return validador;
@@ -101,7 +101,7 @@ void armazena_dados (char opt, int bloco, int apt)
     preco[id].total=calculo_de_valor(preco[id].garagem, preco[id].apt);
 
 		//calculo valor total a ser pago
-    printf("Valor total a pagar: R$%.2f", preco[id].total);
+    printf("Valor total a pagar: R$%.2f\n", preco[id].total);
 		printf("\nSelecione a forma de pagamento: \n");
 
     while(true) {
@@ -131,7 +131,7 @@ void armazena_dados (char opt, int bloco, int apt)
         parcelar=parcelado(num, preco[id].total);
 
         if(parcelar>-1)
-          printf("\n%d parcelas de %.2f", num, parcelar);
+          printf("\n%d parcelas de %.2f\n", num, parcelar);
         else
           continue;
 
@@ -148,7 +148,7 @@ void armazena_dados (char opt, int bloco, int apt)
     dados[id].opca=opt;
 
     gravar();
-    printf("\nObrigado por negociar conosco!");
+    printf("\n\nObrigado por negociar conosco!\n");
 
 	}
 
@@ -184,7 +184,7 @@ void negociacao() {
 
 		if(apt_check[bloco-1][andar-1][coluna-1]==true)
 		{
-			printf("\nDisponivel");
+			printf("\nDisponivel\n");
 			printf("\nO que deseja fazer?\n0 - Comprar\n1 - Reservar\n2 - Cancelar\n>>> ");
 			scanf("%i", &opcao);
 
