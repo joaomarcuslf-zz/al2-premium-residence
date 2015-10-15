@@ -32,6 +32,7 @@ typedef struct preco_do_apt // Preco do apartamento
   int vagas[2];
   float total;
   int parcela;
+  int contrutora;
   float total_parcelado;
 
 }valor;
@@ -238,7 +239,7 @@ void gravar() {
   fclose(file);
 
   f1 = fopen(ven_atual.arquivo, "a");
-  fprintf(f1, "%i - %3i - %c", preco[id].bloco, preco[id].apt, dados[id].opca);
+  fprintf(f1, "%i - %3i - %c     - R$%.2f", preco[id].bloco, preco[id].apt, dados[id].opca, percent(0.4, preco[id].total, 1));
   fclose(f1);
 
 
@@ -306,4 +307,62 @@ void mudar_status(int b, int apt) {
 
   f1=fopen("arq1", "w");
   fclose(f1);
+}
+
+void construtora(int bloco, int apt) {
+  char nome[500];
+  int i;
+  int j;
+  int k;
+  FILE *file, *f1;
+  sprintf(nome, "Construtora/b %i apt %i.txt", bloco, apt);
+  file=fopen(nome, "w");
+  fprintf(file, "----------------------------------------------------------------------\n");
+  fprintf(file, "Status: Construtora");
+  fprintf(file, "\n----------------------------------------------------------------------");
+  fprintf(file, "\nBloco: %2i Apt: %4i", bloco, apt);
+  fclose(file);
+
+  f1 = fopen(ven_atual.arquivo, "a");
+  fprintf(f1, "%i - %3i - O     - R$%.2f", bloco, apt, 0.00);
+  fclose(f1);
+  apartamento[bloco-1][(apt/100)-1][(apt%10)-1]='O';
+
+
+
+  file=fopen("Relatorios/apartamentos.txt", "w");
+  for(i=0;i<4;i++) {
+    fprintf(file, "Bloco: %2i\n", i+1);
+    for(j=0;j<10;j++) {
+      fprintf(file, "Andar %2i:", j+1);
+      for(k=0;k<6;k++) {
+        fprintf(file, "[%c] ", apartamento[i][j][k]);
+      }
+      fprintf(file, "\n");
+    }
+    fprintf(file, "\n\n\n");
+  }
+  fclose(file);
+
+  file=fopen("Relatorios/garagem.txt", "w");
+  for(i=0;i<400;i++) {
+    fprintf(file, "G%3i: [%c]\n", i, mp_garagem[i]);
+  }
+  fclose(file);
+
+  file=fopen("banco/banco_apt.txt", "w");
+  for(i=0;i<4;i++) {
+    for(j=0;j<10;j++) {
+      for(k=0;k<6;k++) {
+        fprintf(file, "[%c]\n", apartamento[i][j][k]);
+      }
+    }
+  }
+  fclose(file);
+
+  file=fopen("banco/banco_gar.txt", "w");
+  for(i=0;i<400;i++) {
+    fprintf(file, "[%c]\n", mp_garagem[i]);
+  }
+  fclose(file);
 }

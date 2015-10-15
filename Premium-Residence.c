@@ -12,6 +12,7 @@ int main() {
   preparar(); // Iniciar todas as vagas
   int validador;
 
+  logar_vendedor();//Logar primeiro vendedor para não ter Erro
   while(true) {
     while(true) {
 			validador = panel(); //Painel principal
@@ -51,6 +52,7 @@ void armazena_dados (char opt, int bloco, int apt)
   int id=num_de_cliente;
   int validador;
   int vagas;
+  float desconto;
 
   dados[id].id=num_de_cliente;
   preco[id].id=id;
@@ -81,7 +83,7 @@ void armazena_dados (char opt, int bloco, int apt)
       while(true) {
         printf("\nEscolha a quantidade de vagas na garagem:\n- 0\n- 1\n>>> ");
         scanf("%d", &vagas);
-        if(vagas == 0 or 1)
+        if(vagas == 0 or vagas == 1)
           break;
         else
           printf("\nNum invalido!");
@@ -101,7 +103,7 @@ void armazena_dados (char opt, int bloco, int apt)
     preco[id].total=calculo_de_valor(preco[id].garagem, preco[id].apt);
 
 		//calculo valor total a ser pago
-    printf("Valor total a pagar: R$%.2f\n", preco[id].total);
+    printf("\nValor total a pagar: R$%.2f\n", preco[id].total);
 		printf("\nSelecione a forma de pagamento: \n");
 
     while(true) {
@@ -116,6 +118,16 @@ void armazena_dados (char opt, int bloco, int apt)
 
 		if(tipopagamento == 0 )
 		{
+        printf("\nDiga o valor do desconto de 0 a 15");
+        while(true) {
+          printf("\n>>> ");
+          scanf("%f", &desconto);
+          if(desconto>=0 && desconto<=15) {
+            break;
+          }
+        }
+        preco[id].total=preco[id].total-percent(desconto, preco[id].total, 1);
+        printf("\nNovo valor total a pagar: R$%.2f\n", preco[id].total);
         preco[id].parcela=0;
 
 		}
@@ -195,7 +207,18 @@ void negociacao() {
 			}
 			else if(opcao == 1)
 			{
-				armazena_dados('R', bloco, napto);
+        printf("\nReservado pela construtora?\n0 - Nao\n1 - Sim\n>>> ");
+        scanf("%i", &opcao);
+
+        while(opcao<0 || opcao>1) {
+          printf("\n>>> ");
+          scanf("%i", &opcao);
+        }
+
+        if(opcao==1)
+          construtora(bloco, napto);
+        else
+          armazena_dados('R', bloco, napto);
         return;
 			}
 			else if(opcao == 2)
@@ -215,9 +238,9 @@ void negociacao() {
 
 void logar_vendedor() {
   FILE *f1;
-  printf("\nDiga seu nome: ");
+  printf("\nDiga o nome do vendedor: ");
   scanf(" %[^\n]s%*c", ven_atual.nome);
-  printf("\nDiga seu id: ");
+  printf("\nDiga seu id do vendedor: ");
   scanf("%i", &ven_atual.id);
   sprintf(ven_atual.arquivo, "Vendedor/%s_%i.txt", ven_atual.nome, ven_atual.id);
 
